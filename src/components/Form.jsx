@@ -98,6 +98,7 @@ class Form extends Component {
             <option value="normal">Normal</option>
             <option value="raro">Raro</option>
             <option value="muito raro">Muito Raro</option>
+            <option value="hidden" disabled hidden>Selecione Uma Raridade</option>
           </select>
         </label>
         <label className="form-label-inline" htmlFor="cardTrunfo">
