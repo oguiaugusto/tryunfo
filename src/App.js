@@ -9,18 +9,23 @@ class App extends React.Component {
     this.state = {
       cardName: '',
       cardDescription: '',
-      cardAttr1: '',
-      cardAttr2: '',
-      cardAttr3: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
       cardImage: '',
-      cardRare: 'hidden',
+      cardRare: 'normal',
       cardTrunfo: false,
       hasTrunfo: false,
       isSaveButtonDisabled: true,
+
+      savedCards: [],
     };
 
     this.onInputChange = this.onInputChange.bind(this);
     this.checkFields = this.checkFields.bind(this);
+    this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
+    this.clearFields = this.clearFields.bind(this);
+    this.setSuperTrunfo = this.setSuperTrunfo.bind(this);
   }
 
   onInputChange({ target }) {
@@ -30,6 +35,46 @@ class App extends React.Component {
     this.setState({ [name]: value }, () => {
       this.checkFields();
     });
+  }
+
+  onSaveButtonClick() {
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+      savedCards,
+      isSaveButtonDisabled,
+    } = this.state;
+
+    const newCard = {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    };
+
+    let allCards = [];
+    if (!isSaveButtonDisabled) {
+      allCards = [...savedCards, newCard];
+    }
+
+    this.setState({ savedCards: allCards }, () => {
+      this.clearFields();
+      if (cardTrunfo) this.setSuperTrunfo();
+    });
+  }
+
+  setSuperTrunfo() {
+    this.setState({ hasTrunfo: true });
   }
 
   checkFields() {
@@ -70,6 +115,20 @@ class App extends React.Component {
     }
   }
 
+  clearFields() {
+    this.setState({
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
+      cardImage: '',
+      cardRare: 'normal',
+      cardTrunfo: false,
+      isSaveButtonDisabled: true,
+    });
+  }
+
   render() {
     const {
       cardName,
@@ -97,7 +156,7 @@ class App extends React.Component {
       isSaveButtonDisabled,
     };
 
-    const { onInputChange } = this;
+    const { onInputChange, onSaveButtonClick, setSuperTrunfo } = this;
 
     return (
       <>
@@ -105,7 +164,12 @@ class App extends React.Component {
           <h1>Tryunfo</h1>
         </header>
         <main className="main-content">
-          <Form { ...formStates } onInputChange={ onInputChange } />
+          <Form
+            { ...formStates }
+            onInputChange={ onInputChange }
+            onSaveButtonClick={ onSaveButtonClick }
+            setSuperTrunfo={ setSuperTrunfo }
+          />
           <Card { ...formStates } />
         </main>
       </>

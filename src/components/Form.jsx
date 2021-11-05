@@ -18,6 +18,24 @@ class Form extends Component {
       onSaveButtonClick,
     } = this.props;
 
+    const checkTrunfo = (
+      <label className="form-label-inline" htmlFor="cardTrunfo">
+        <input
+          data-testid="trunfo-input"
+          type="checkbox"
+          name="cardTrunfo"
+          id="cardTrunfo"
+          checked={ cardTrunfo }
+          onChange={ onInputChange }
+        />
+        Carta Super Trunfo?
+      </label>
+    );
+
+    const noCheckTrunfo = (
+      <p className="trunfo-validated">Você já tem um Super Trunfo em seu baralho</p>
+    );
+
     return (
       <form className="form">
         <p className="p-title">Adicionar Nova Carta</p>
@@ -98,20 +116,9 @@ class Form extends Component {
             <option value="normal">Normal</option>
             <option value="raro">Raro</option>
             <option value="muito raro">Muito Raro</option>
-            <option value="hidden" disabled hidden>Selecione Uma Raridade</option>
           </select>
         </label>
-        <label className="form-label-inline" htmlFor="cardTrunfo">
-          <input
-            data-testid="trunfo-input"
-            type="checkbox"
-            name="cardTrunfo"
-            id="cardTrunfo"
-            checked={ cardTrunfo }
-            onChange={ onInputChange }
-          />
-          Carta Super Trunfo?
-        </label>
+        {hasTrunfo ? noCheckTrunfo : checkTrunfo}
         <button
           data-testid="save-button"
           type="button"

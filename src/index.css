@@ -21,3 +21,8 @@ code {
   margin: 0 20%;
   justify-content: space-around;
 }
+
+.trunfo-validated {
+  font-size: 0.6rem;
+  color: red;
+}
