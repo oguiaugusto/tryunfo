@@ -62,11 +62,13 @@ class App extends React.Component {
 
     return (
       <>
-        <header>
+        <header className="header">
           <h1>Tryunfo</h1>
         </header>
-        <Form { ...formStates } onInputChange={ onInputChange } />
-        <Card { ...formStates } />
+        <main className="main-content">
+          <Form { ...formStates } onInputChange={ onInputChange } />
+          <Card { ...formStates } />
+        </main>
       </>
     );
   }
