@@ -1,0 +1,98 @@
+.p-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.form {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.form-label {
+  display: block;
+  margin: 1.5rem 0;
+}
+
+.form-label-inline {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0;
+  width: 105%;
+}
+
+.form-label input, .form-label textarea, .form-label select {
+  background-color: white;
+  border: none;
+  border-bottom: 1px solid #3d495c;
+  display: block;
+  font-family: Raleway , sans-serif;
+  font-size: 1rem;
+  font-weight: 200;
+  margin: 0;
+  padding: 0.4rem 0.5rem;
+  width: 100%;
+}
+
+.form-label textarea {
+  max-height: 50px;
+  resize: vertical;
+}
+
+.form-label-inline input {
+  border: 1px solid #29313d;
+  padding: 0.4rem 0.5rem;
+  width: 65%;
+}
+
+.form-label input:focus, .form-label textarea:focus, .form-label-inline input:focus {
+  border-width: 2px;
+  outline: none;
+}
+
+.form-label select:focus {
+  outline: none;
+}
+
+.cardTrunfo-label {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.trunfo-validated {
+  color: red;
+  font-size: 0.7rem;
+  margin: 0;
+}
+
+.form-label-inline .cardTrunfo {
+  margin-right: 0.5rem;
+  width: auto;
+}
+
+.button {
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.8rem 2rem;
+}
+
+.form .button {
+  align-self: center;
+  margin-top: 1.5rem;
+}
+
+.blue-button {
+  background-color: #003be5;
+  color: rgb(238, 238, 238);
+}
+
+.blue-button:hover {
+  background-color: #0032c7;
+  color: white;
+}
+
+.blue-button:active {
+  background-color: #002aa7;
+  color: white;
+}

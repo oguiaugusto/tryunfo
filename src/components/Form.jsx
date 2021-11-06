@@ -19,9 +19,10 @@ class Form extends Component {
     } = this.props;
 
     const checkTrunfo = (
-      <label className="form-label-inline" htmlFor="cardTrunfo">
+      <label className="form-label-inline cardTrunfo-label" htmlFor="cardTrunfo">
         <input
           data-testid="trunfo-input"
+          className="cardTrunfo"
           type="checkbox"
           name="cardTrunfo"
           id="cardTrunfo"
@@ -46,6 +47,7 @@ class Form extends Component {
             type="text"
             name="cardName"
             id="cardName"
+            placeholder="Qual o nome da carta?"
             value={ cardName }
             onChange={ onInputChange }
           />
@@ -56,6 +58,7 @@ class Form extends Component {
             data-testid="description-input"
             name="cardDescription"
             id="cardDescription"
+            placeholder="O que ela faz?"
             value={ cardDescription }
             onChange={ onInputChange }
           />
@@ -121,6 +124,7 @@ class Form extends Component {
         {hasTrunfo ? noCheckTrunfo : checkTrunfo}
         <button
           data-testid="save-button"
+          className="button blue-button"
           type="button"
           disabled={ isSaveButtonDisabled }
           onClick={ onSaveButtonClick }
