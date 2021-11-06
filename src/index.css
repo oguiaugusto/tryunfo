@@ -19,9 +19,18 @@ code {
   text-align: center;
 }
 
-.main-content {
+.create-card {
   display: flex;
   justify-content: space-between;
   flex-basis: 50%;
   margin: 0 15%;
+}
+
+.saved-cards {
+  display: flex;
+  justify-content: space-around;
+}
+
+.saved-cards .card-border {
+  width: 20%;
 }

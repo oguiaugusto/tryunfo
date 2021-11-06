@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import SavedCards from './components/SavedCards';
 
 class App extends React.Component {
   constructor() {
@@ -141,6 +142,7 @@ class App extends React.Component {
       cardTrunfo,
       hasTrunfo,
       isSaveButtonDisabled,
+      savedCards,
     } = this.state;
 
     const formStates = {
@@ -164,13 +166,19 @@ class App extends React.Component {
           <h1>Tryunfo</h1>
         </header>
         <main className="main-content">
-          <Form
-            { ...formStates }
-            onInputChange={ onInputChange }
-            onSaveButtonClick={ onSaveButtonClick }
-            setSuperTrunfo={ setSuperTrunfo }
-          />
-          <Card { ...formStates } />
+          <section className="create-card">
+            <Form
+              { ...formStates }
+              onInputChange={ onInputChange }
+              onSaveButtonClick={ onSaveButtonClick }
+              setSuperTrunfo={ setSuperTrunfo }
+            />
+            <section className="preview">
+              <p className="p-title">Pré-visualização</p>
+              <Card { ...formStates } />
+            </section>
+          </section>
+          <SavedCards savedCards={ savedCards } />
         </main>
       </>
     );
