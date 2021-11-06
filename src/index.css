@@ -31,6 +31,7 @@ code {
   justify-content: space-around;
 }
 
-.saved-cards .card-border {
-  width: 20%;
+.saved-cards .card-container .card-border {
+  width: 259.188px;
+  margin: 7%;
 }

@@ -4,7 +4,8 @@ import Card from './Card';
 
 class SavedCards extends React.Component {
   render() {
-    const { savedCards } = this.props;
+    const { savedCards, onRemoveButtonClick } = this.props;
+    const removeButton = true;
 
     return (
       <section className="saved-cards">
@@ -31,7 +32,14 @@ class SavedCards extends React.Component {
             cardTrunfo,
           };
 
-          return <Card key={ cardName } { ...cardStates } />;
+          return (
+            <Card
+              key={ cardName }
+              { ...cardStates }
+              onRemoveButtonClick={ onRemoveButtonClick }
+              removeButton={ removeButton }
+            />
+          );
         })}
       </section>
     );
@@ -40,6 +48,7 @@ class SavedCards extends React.Component {
 
 SavedCards.propTypes = {
   savedCards: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onRemoveButtonClick: PropTypes.func.isRequired,
 };
 
 export default SavedCards;

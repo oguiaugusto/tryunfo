@@ -10,24 +10,34 @@
   color: white;
 }
 
+.card-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
 .card p {
   margin: 0;
 }
 
 .card-border {
   align-items: center;
-  background-color: white;
   border-radius: 0.5rem;
   display: flex;
   justify-content: center;
   margin-top: 20%;
+  max-width: 430px;
   width: 50%;
 }
 
 .card {
   background-color: white;
   border: 5px solid #036b52;
+  border-radius: 1rem;
   height: 93%;
+  outline: 10px solid white;
   width: 91%;
 }
 
@@ -92,4 +102,22 @@
   top: 5%;
   transform: rotate(-15deg);
   width: 15%;
+}
+
+.blue-hover-button {
+  background-color: #fafafa;
+  border: 2px solid #003be5;
+  color: rgb(26, 26, 26);
+  transition-duration: 0.3s;
+}
+
+.blue-hover-button:hover {
+  background-color: #003be5;
+  color: rgb(238, 238, 238);
+}
+
+.blue-hover-button:active {
+  background-color: #002aa7;
+  border-color: #002aa7;
+  color: white;
 }

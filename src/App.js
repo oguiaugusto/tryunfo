@@ -27,6 +27,7 @@ class App extends React.Component {
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.clearFields = this.clearFields.bind(this);
     this.setSuperTrunfo = this.setSuperTrunfo.bind(this);
+    this.onRemoveButtonClick = this.onRemoveButtonClick.bind(this);
   }
 
   onInputChange({ target }) {
@@ -71,6 +72,22 @@ class App extends React.Component {
     this.setState({ savedCards: allCards }, () => {
       this.clearFields();
       if (cardTrunfo) this.setSuperTrunfo();
+    });
+  }
+
+  onRemoveButtonClick({ target }) {
+    const { name } = target;
+    const { savedCards } = this.state;
+    const newSavedCards = savedCards.filter((card) => card.cardName !== name);
+
+    const isTrunfo = savedCards.find((card) => card.cardName === name).cardTrunfo;
+
+    if (isTrunfo) {
+      this.setState({ hasTrunfo: false });
+    }
+
+    this.setState({
+      savedCards: newSavedCards,
     });
   }
 
@@ -158,7 +175,14 @@ class App extends React.Component {
       isSaveButtonDisabled,
     };
 
-    const { onInputChange, onSaveButtonClick, setSuperTrunfo } = this;
+    const {
+      onInputChange,
+      onSaveButtonClick,
+      setSuperTrunfo,
+      onRemoveButtonClick,
+    } = this;
+
+    const removeButton = false;
 
     return (
       <>
@@ -175,10 +199,17 @@ class App extends React.Component {
             />
             <section className="preview">
               <p className="p-title">Pré-visualização</p>
-              <Card { ...formStates } />
+              <Card
+                { ...formStates }
+                removeButton={ removeButton }
+                onRemoveButtonClick={ onRemoveButtonClick }
+              />
             </section>
           </section>
-          <SavedCards savedCards={ savedCards } />
+          <SavedCards
+            savedCards={ savedCards }
+            onRemoveButtonClick={ onRemoveButtonClick }
+          />
         </main>
       </>
     );
