@@ -22,6 +22,8 @@ class App extends React.Component {
 
       nameFilter: '',
       rareFilter: 'todas',
+      trunfoFilter: false,
+      otherFiltersDisabled: false,
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -32,6 +34,7 @@ class App extends React.Component {
     this.onRemoveButtonClick = this.onRemoveButtonClick.bind(this);
     this.filterInput = this.filterInput.bind(this);
     this.filterCards = this.filterCards.bind(this);
+    this.filterTrunfo = this.filterTrunfo.bind(this);
   }
 
   onInputChange({ target }) {
@@ -98,9 +101,15 @@ class App extends React.Component {
     this.setState({ hasTrunfo: true });
   }
 
-  filterInput({ target: { name, value } }) {
+  filterInput({ target, target: { name, type, checked } }) {
+    const value = (type === 'checkbox') ? checked : target.value;
     this.setState({ [name]: value }, () => {
-      this.filterCards();
+      if (type === 'checkbox') {
+        this.setState({ otherFiltersDisabled: true });
+        this.filterTrunfo();
+      } else {
+        this.filterCards();
+      }
     });
   }
 
@@ -116,6 +125,18 @@ class App extends React.Component {
       this.setState({
         filteredCards: filteredCards.filter((card) => card.cardRare === rareFilter),
       });
+    }
+  }
+
+  filterTrunfo() {
+    const { savedCards, trunfoFilter } = this.state;
+
+    if (trunfoFilter) {
+      this.setState({
+        filteredCards: savedCards.filter((card) => card.cardTrunfo === true),
+      });
+    } else {
+      this.setState({ otherFiltersDisabled: false });
     }
   }
 
@@ -185,6 +206,8 @@ class App extends React.Component {
       filteredCards,
       nameFilter,
       rareFilter,
+      trunfoFilter,
+      otherFiltersDisabled,
     } = this.state;
 
     const {
@@ -209,6 +232,8 @@ class App extends React.Component {
       filteredCards,
       nameFilter,
       rareFilter,
+      trunfoFilter,
+      otherFiltersDisabled,
       onInputChange,
       onSaveButtonClick,
       setSuperTrunfo,
@@ -216,14 +241,7 @@ class App extends React.Component {
       filterInput,
     };
 
-    return (
-      <>
-        <header className="header">
-          <h1>Tryunfo</h1>
-        </header>
-        <MainContent { ...mainProps } />
-      </>
-    );
+    return <MainContent { ...mainProps } />;
   }
 }
 

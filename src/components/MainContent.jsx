@@ -27,6 +27,8 @@ class MainContent extends Component {
       filteredCards,
       nameFilter,
       rareFilter,
+      trunfoFilter,
+      otherFiltersDisabled,
     } = this.props;
 
     const formStates = {
@@ -42,35 +44,40 @@ class MainContent extends Component {
       isSaveButtonDisabled,
     };
 
-    const filterStates = { nameFilter, rareFilter };
+    const filterStates = { nameFilter, rareFilter, trunfoFilter, otherFiltersDisabled };
 
     const removeButton = false;
 
     return (
-      <main className="main-content">
-        <section className="create-card">
-          <Form
-            { ...formStates }
-            onInputChange={ onInputChange }
-            onSaveButtonClick={ onSaveButtonClick }
-            setSuperTrunfo={ setSuperTrunfo }
-          />
-          <section className="preview">
-            <p className="p-title">Pré-visualização</p>
-            <Card
+      <>
+        <header className="header">
+          <h1>Tryunfo</h1>
+        </header>
+        <main className="main-content">
+          <section className="create-card">
+            <Form
               { ...formStates }
-              removeButton={ removeButton }
-              onRemoveButtonClick={ onRemoveButtonClick }
+              onInputChange={ onInputChange }
+              onSaveButtonClick={ onSaveButtonClick }
+              setSuperTrunfo={ setSuperTrunfo }
             />
+            <section className="preview">
+              <p className="p-title">Pré-visualização</p>
+              <Card
+                { ...formStates }
+                removeButton={ removeButton }
+                onRemoveButtonClick={ onRemoveButtonClick }
+              />
+            </section>
           </section>
-        </section>
-        <AllCards
-          filteredCards={ filteredCards }
-          filterInput={ filterInput }
-          onRemoveButtonClick={ onRemoveButtonClick }
-          { ...filterStates }
-        />
-      </main>
+          <AllCards
+            filteredCards={ filteredCards }
+            filterInput={ filterInput }
+            onRemoveButtonClick={ onRemoveButtonClick }
+            { ...filterStates }
+          />
+        </main>
+      </>
     );
   }
 }
@@ -96,6 +103,8 @@ MainContent.propTypes = {
   filteredCards: PropTypes.arrayOf(PropTypes.object).isRequired,
   nameFilter: PropTypes.string.isRequired,
   rareFilter: PropTypes.string.isRequired,
+  trunfoFilter: PropTypes.bool.isRequired,
+  otherFiltersDisabled: PropTypes.bool.isRequired,
 };
 
 export default MainContent;

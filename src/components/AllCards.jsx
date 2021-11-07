@@ -9,7 +9,9 @@ class AllCards extends React.Component {
       onRemoveButtonClick,
       nameFilter,
       rareFilter,
+      trunfoFilter,
       filterInput,
+      otherFiltersDisabled,
     } = this.props;
     const removeButton = true;
 
@@ -27,6 +29,7 @@ class AllCards extends React.Component {
               name="nameFilter"
               value={ nameFilter }
               onChange={ filterInput }
+              disabled={ otherFiltersDisabled }
             />
             <select
               data-testid="rare-filter"
@@ -35,6 +38,7 @@ class AllCards extends React.Component {
               className="filter-input filter-select"
               value={ rareFilter }
               onChange={ filterInput }
+              disabled={ otherFiltersDisabled }
             >
               Raridade
               <option value="todas">Todas</option>
@@ -42,6 +46,18 @@ class AllCards extends React.Component {
               <option value="raro">Raro</option>
               <option value="muito raro">Muito Raro</option>
             </select>
+            <label className="filter-label" htmlFor="trunfoFilter">
+              <input
+                data-testid="trunfo-filter"
+                name="trunfoFilter"
+                id="trunfoFilter"
+                className="filter-checkbox"
+                type="checkbox"
+                value={ trunfoFilter }
+                onChange={ filterInput }
+              />
+              Super Trybe Trunfo?
+            </label>
             <button
               className="button blue-button"
               type="button"
@@ -95,6 +111,8 @@ AllCards.propTypes = {
   filterInput: PropTypes.func.isRequired,
   nameFilter: PropTypes.string.isRequired,
   rareFilter: PropTypes.string.isRequired,
+  trunfoFilter: PropTypes.bool.isRequired,
+  otherFiltersDisabled: PropTypes.bool.isRequired,
 };
 
 export default AllCards;

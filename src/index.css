@@ -77,9 +77,17 @@ code {
 }
 
 .filter-cards button {
-  margin: 0.5rem 0;
+  margin: 1.2rem 0;
 }
 
 .filter-cards .filter-select {
   width: 100%;
+}
+
+.filter-cards .filter-label {
+  display: block;
+}
+
+.filter-label input {
+  margin-right: 0.4rem;
 }
