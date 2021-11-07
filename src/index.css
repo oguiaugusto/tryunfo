@@ -32,6 +32,45 @@ code {
 }
 
 .saved-cards .card-container .card-border {
+  margin-top: 7%;
   width: 259.188px;
-  margin: 7%;
+}
+
+.all-cards-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  min-height: 1200px;
+}
+
+.all-cards-container .saved-cards {
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: 65%;
+}
+
+.saved-cards .card-container {
+  flex-basis: 30%;
+}
+
+.filter-cards .filter-input {
+  background-color: white;
+  border: none;
+  border: 1px solid #3d495c;
+  border-radius: 0.5rem;
+  display: block;
+  font-family: Raleway , sans-serif;
+  font-size: 1rem;
+  font-weight: 200;
+  margin: 0;
+  padding: 0.4rem 0.5rem;
+}
+
+.filter-cards .filter-input:focus {
+  border-bottom: 2px solid #3d495c;
+  outline: none;
+}
+
+.filter-cards button {
+  margin: 1.5rem 0;
 }

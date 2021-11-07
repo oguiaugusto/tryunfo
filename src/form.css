@@ -85,6 +85,7 @@
 .blue-button {
   background-color: #003be5;
   color: rgb(238, 238, 238);
+  transition-duration: 0.2s;
 }
 
 .blue-button:hover {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
-import SavedCards from './components/SavedCards';
+import AllCards from './components/AllCards';
 
 class App extends React.Component {
   constructor() {
@@ -20,6 +20,9 @@ class App extends React.Component {
       isSaveButtonDisabled: true,
 
       savedCards: [],
+      filteredCards: [],
+
+      nameFilter: '',
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -28,6 +31,7 @@ class App extends React.Component {
     this.clearFields = this.clearFields.bind(this);
     this.setSuperTrunfo = this.setSuperTrunfo.bind(this);
     this.onRemoveButtonClick = this.onRemoveButtonClick.bind(this);
+    this.filterCards = this.filterCards.bind(this);
   }
 
   onInputChange({ target }) {
@@ -69,7 +73,10 @@ class App extends React.Component {
       allCards = [...savedCards, newCard];
     }
 
-    this.setState({ savedCards: allCards }, () => {
+    this.setState({
+      savedCards: allCards,
+      filteredCards: allCards,
+    }, () => {
       this.clearFields();
       if (cardTrunfo) this.setSuperTrunfo();
     });
@@ -88,11 +95,21 @@ class App extends React.Component {
 
     this.setState({
       savedCards: newSavedCards,
+      filteredCards: newSavedCards,
     });
   }
 
   setSuperTrunfo() {
     this.setState({ hasTrunfo: true });
+  }
+
+  filterCards({ target: { name, value } }) {
+    const { nameFilter, savedCards } = this.state;
+    this.setState({
+      [name]: value,
+      filteredCards: savedCards.filter((card) => (
+        card.cardName.toLowerCase().includes(nameFilter.toLowerCase()))),
+    });
   }
 
   checkFields() {
@@ -159,7 +176,8 @@ class App extends React.Component {
       cardTrunfo,
       hasTrunfo,
       isSaveButtonDisabled,
-      savedCards,
+      filteredCards,
+      nameFilter,
     } = this.state;
 
     const formStates = {
@@ -175,11 +193,16 @@ class App extends React.Component {
       isSaveButtonDisabled,
     };
 
+    const filterStates = {
+      nameFilter,
+    };
+
     const {
       onInputChange,
       onSaveButtonClick,
       setSuperTrunfo,
       onRemoveButtonClick,
+      filterCards,
     } = this;
 
     const removeButton = false;
@@ -206,9 +229,11 @@ class App extends React.Component {
               />
             </section>
           </section>
-          <SavedCards
-            savedCards={ savedCards }
+          <AllCards
+            filteredCards={ filteredCards }
+            filterCards={ filterCards }
             onRemoveButtonClick={ onRemoveButtonClick }
+            { ...filterStates }
           />
         </main>
       </>
