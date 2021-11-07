@@ -1,7 +1,5 @@
 import React from 'react';
-import Form from './components/Form';
-import Card from './components/Card';
-import AllCards from './components/AllCards';
+import MainContent from './components/MainContent';
 
 class App extends React.Component {
   constructor() {
@@ -189,7 +187,15 @@ class App extends React.Component {
       rareFilter,
     } = this.state;
 
-    const formStates = {
+    const {
+      onInputChange,
+      onSaveButtonClick,
+      setSuperTrunfo,
+      onRemoveButtonClick,
+      filterInput,
+    } = this;
+
+    const mainProps = {
       cardName,
       cardDescription,
       cardAttr1,
@@ -200,48 +206,22 @@ class App extends React.Component {
       cardTrunfo,
       hasTrunfo,
       isSaveButtonDisabled,
-    };
-
-    const filterStates = { nameFilter, rareFilter };
-
-    const {
+      filteredCards,
+      nameFilter,
+      rareFilter,
       onInputChange,
       onSaveButtonClick,
       setSuperTrunfo,
       onRemoveButtonClick,
       filterInput,
-    } = this;
-    const removeButton = false;
+    };
 
     return (
       <>
         <header className="header">
           <h1>Tryunfo</h1>
         </header>
-        <main className="main-content">
-          <section className="create-card">
-            <Form
-              { ...formStates }
-              onInputChange={ onInputChange }
-              onSaveButtonClick={ onSaveButtonClick }
-              setSuperTrunfo={ setSuperTrunfo }
-            />
-            <section className="preview">
-              <p className="p-title">Pré-visualização</p>
-              <Card
-                { ...formStates }
-                removeButton={ removeButton }
-                onRemoveButtonClick={ onRemoveButtonClick }
-              />
-            </section>
-          </section>
-          <AllCards
-            filteredCards={ filteredCards }
-            filterInput={ filterInput }
-            onRemoveButtonClick={ onRemoveButtonClick }
-            { ...filterStates }
-          />
-        </main>
+        <MainContent { ...mainProps } />
       </>
     );
   }
