@@ -23,6 +23,7 @@ class App extends React.Component {
       filteredCards: [],
 
       nameFilter: '',
+      rareFilter: 'todas',
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -31,6 +32,7 @@ class App extends React.Component {
     this.clearFields = this.clearFields.bind(this);
     this.setSuperTrunfo = this.setSuperTrunfo.bind(this);
     this.onRemoveButtonClick = this.onRemoveButtonClick.bind(this);
+    this.filterInput = this.filterInput.bind(this);
     this.filterCards = this.filterCards.bind(this);
   }
 
@@ -69,14 +71,9 @@ class App extends React.Component {
     };
 
     let allCards = [];
-    if (!isSaveButtonDisabled) {
-      allCards = [...savedCards, newCard];
-    }
+    if (!isSaveButtonDisabled) allCards = [...savedCards, newCard];
 
-    this.setState({
-      savedCards: allCards,
-      filteredCards: allCards,
-    }, () => {
+    this.setState({ savedCards: allCards, filteredCards: allCards }, () => {
       this.clearFields();
       if (cardTrunfo) this.setSuperTrunfo();
     });
@@ -103,13 +100,25 @@ class App extends React.Component {
     this.setState({ hasTrunfo: true });
   }
 
-  filterCards({ target: { name, value } }) {
-    const { nameFilter, savedCards } = this.state;
+  filterInput({ target: { name, value } }) {
+    this.setState({ [name]: value }, () => {
+      this.filterCards();
+    });
+  }
+
+  filterCards() {
+    const { nameFilter, rareFilter, savedCards, filteredCards } = this.state;
+
     this.setState({
-      [name]: value,
       filteredCards: savedCards.filter((card) => (
         card.cardName.toLowerCase().includes(nameFilter.toLowerCase()))),
     });
+
+    if (rareFilter !== 'todas') {
+      this.setState({
+        filteredCards: filteredCards.filter((card) => card.cardRare === rareFilter),
+      });
+    }
   }
 
   checkFields() {
@@ -142,7 +151,6 @@ class App extends React.Component {
     ];
 
     const enabled = filledInfo.every((field) => field !== true);
-
     if (enabled) {
       this.setState({ isSaveButtonDisabled: false });
     } else {
@@ -178,6 +186,7 @@ class App extends React.Component {
       isSaveButtonDisabled,
       filteredCards,
       nameFilter,
+      rareFilter,
     } = this.state;
 
     const formStates = {
@@ -193,18 +202,15 @@ class App extends React.Component {
       isSaveButtonDisabled,
     };
 
-    const filterStates = {
-      nameFilter,
-    };
+    const filterStates = { nameFilter, rareFilter };
 
     const {
       onInputChange,
       onSaveButtonClick,
       setSuperTrunfo,
       onRemoveButtonClick,
-      filterCards,
+      filterInput,
     } = this;
-
     const removeButton = false;
 
     return (
@@ -231,7 +237,7 @@ class App extends React.Component {
           </section>
           <AllCards
             filteredCards={ filteredCards }
-            filterCards={ filterCards }
+            filterInput={ filterInput }
             onRemoveButtonClick={ onRemoveButtonClick }
             { ...filterStates }
           />

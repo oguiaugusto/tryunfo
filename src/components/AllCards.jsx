@@ -8,13 +8,14 @@ class AllCards extends React.Component {
       filteredCards,
       onRemoveButtonClick,
       nameFilter,
-      filterCards,
+      rareFilter,
+      filterInput,
     } = this.props;
     const removeButton = true;
 
     return (
       <>
-        <p className="p-title">Todas as cartas</p>
+        <p className="p-title" id="all-cards-title">Todas as cartas</p>
         <section className="all-cards-container">
           <div className="filter-cards">
             <p>Filtro de busca</p>
@@ -25,12 +26,25 @@ class AllCards extends React.Component {
               type="text"
               name="nameFilter"
               value={ nameFilter }
-              onChange={ filterCards }
+              onChange={ filterInput }
             />
+            <select
+              data-testid="rare-filter"
+              name="rareFilter"
+              id="rareFilter"
+              className="filter-input filter-select"
+              value={ rareFilter }
+              onChange={ filterInput }
+            >
+              Raridade
+              <option value="todas">Todas</option>
+              <option value="normal">Normal</option>
+              <option value="raro">Raro</option>
+              <option value="muito raro">Muito Raro</option>
+            </select>
             <button
               className="button blue-button"
               type="button"
-              // onClick={ onFilterClick }
             >
               Buscar
             </button>
@@ -78,8 +92,9 @@ class AllCards extends React.Component {
 AllCards.propTypes = {
   filteredCards: PropTypes.arrayOf(PropTypes.object).isRequired,
   onRemoveButtonClick: PropTypes.func.isRequired,
-  filterCards: PropTypes.func.isRequired,
+  filterInput: PropTypes.func.isRequired,
   nameFilter: PropTypes.string.isRequired,
+  rareFilter: PropTypes.string.isRequired,
 };
 
 export default AllCards;
