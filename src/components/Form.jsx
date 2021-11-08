@@ -2,6 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Form extends Component {
+  constructor() {
+    super();
+
+    this.remainingPoints = this.remainingPoints.bind(this);
+  }
+
+  remainingPoints(max, p1, p2, p3) {
+    const total = parseInt(p1, 10) + parseInt(p2, 10) + parseInt(p3, 10);
+    const remaining = max - total;
+    return remaining;
+  }
+
   render() {
     const {
       cardName,
@@ -17,6 +29,10 @@ class Form extends Component {
       onInputChange,
       onSaveButtonClick,
     } = this.props;
+
+    const { remainingPoints } = this;
+
+    const max = 210;
 
     const checkTrunfo = (
       <label className="form-label-inline cardTrunfo-label" htmlFor="cardTrunfo">
@@ -97,6 +113,10 @@ class Form extends Component {
               onChange={ onInputChange }
             />
           </label>
+          <p className="remaining-points">
+            Pontos restantes:&nbsp;
+            {remainingPoints(max, cardAttr1, cardAttr2, cardAttr3)}
+          </p>
           <label className="form-label-inline" htmlFor="cardImage">
             Imagem
             <input

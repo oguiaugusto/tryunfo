@@ -44,12 +44,17 @@
   width: 65%;
 }
 
-.form-label input:focus, .form-label textarea:focus, .form-label-inline input:focus {
+.form-label input:focus, .form-label textarea:focus {
   border-width: 2px;
   outline: none;
 }
 
 .form-label select:focus {
+  outline: none;
+}
+
+.form-label-inline input:focus {
+  border-bottom-width: 2px;
   outline: none;
 }
 
