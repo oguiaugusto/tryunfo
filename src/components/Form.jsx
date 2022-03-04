@@ -21,7 +21,12 @@ export default function Form() {
     <form>
       <h2>Adicionar nova carta</h2>
       <CardInput name="name" testid="name-input" labelName="Nome" />
-      <CardInput name="description" testid="description-input" labelName="Descrição" />
+      <CardInput
+        name="description"
+        testid="description-input"
+        labelName="Descrição"
+        type="textarea"
+      />
       <CardInput name="attr1" testid="attr1-input" labelName="Atributo 1" type="number" />
       <CardInput name="attr2" testid="attr2-input" labelName="Atributo 2" type="number" />
       <CardInput name="attr3" testid="attr3-input" labelName="Atributo 3" type="number" />

@@ -10,6 +10,23 @@ export default function CardInput({ name, testid, labelName, type, options }) {
     setCard({ ...card, [name]: value });
   };
 
+  if (type === 'textarea') {
+    return (
+      <label htmlFor={ `card-${name}` }>
+        {labelName}
+        <textarea
+          data-testid={ testid }
+          type={ type }
+          name={ name }
+          id={ `card-${name}` }
+          value={ card[name] }
+          checked={ card[name] }
+          onChange={ handleChange }
+        />
+      </label>
+    );
+  }
+
   if (type === 'select') {
     return (
       <label htmlFor={ `card-${name}` }>
