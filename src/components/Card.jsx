@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { Context } from '../Provider';
 
-export default function Card() {
+export default function Card({ formCard }) {
   const { card } = useContext(Context);
 
   return (
@@ -41,16 +42,28 @@ export default function Card() {
           </div>
         </div>
       </div>
-      <div className="card-remove-button">
-        <button
-          data-testid="delete-button"
-          type="button"
-          className="button blue-hover-button remove-button"
-          onClick={ () => {} }
-        >
-          Excluir
-        </button>
-      </div>
+      {
+        formCard ? null : (
+          <div className="card-remove-button">
+            <button
+              data-testid="delete-button"
+              type="button"
+              className="button blue-hover-button remove-button"
+              onClick={ () => {} }
+            >
+              Excluir
+            </button>
+          </div>
+        )
+      }
     </div>
   );
 }
+
+Card.propTypes = {
+  formCard: PropTypes.bool,
+};
+
+Card.defaultProps = {
+  formCard: false,
+};

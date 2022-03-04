@@ -6,7 +6,7 @@ export default function App() {
   return (
     <Provider>
       <Form />
-      <Card />
+      <Card formCard />
     </Provider>
   );
 }
