@@ -5,7 +5,6 @@ import { Context } from '../Provider';
 
 export default function Form() {
   const { hasTrunfo, disableSaveBtn, saveCard } = useContext(Context);
-  const rarityOptions = ['Normal', 'Raro', 'Muito Raro'];
 
   const renderTrunfoCheck = () => ((!hasTrunfo) ? (
     <CardInput
@@ -37,7 +36,6 @@ export default function Form() {
         testid="rare-input"
         labelName="Selecione a raridade"
         type="select"
-        options={ rarityOptions }
       />
       {renderTrunfoCheck()}
       <button

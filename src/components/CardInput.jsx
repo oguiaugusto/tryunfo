@@ -2,7 +2,9 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../Provider';
 
-export default function CardInput({ name, testid, labelName, type, options }) {
+const RARITY_OPTIONS = ['Normal', 'Raro', 'Muito Raro'];
+
+export default function CardInput({ name, testid, labelName, type }) {
   const { card, setCard } = useContext(Context);
 
   const handleChange = ({ target: { value, checked } }) => {
@@ -39,7 +41,7 @@ export default function CardInput({ name, testid, labelName, type, options }) {
           onChange={ handleChange }
         >
           {
-            options.map((op) => (
+            RARITY_OPTIONS.map((op) => (
               <option key={ `${op}-key` } value={ op.toLowerCase() }>{op}</option>
             ))
           }
@@ -69,10 +71,8 @@ CardInput.propTypes = {
   testid: PropTypes.string.isRequired,
   labelName: PropTypes.string.isRequired,
   type: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.string),
 };
 
 CardInput.defaultProps = {
   type: 'text',
-  options: [],
 };
