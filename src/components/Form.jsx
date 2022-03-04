@@ -1,12 +1,13 @@
+/* eslint-disable import/no-cycle */
 import React, { useContext } from 'react';
 import { CardInput } from '.';
 import { Context } from '../Provider';
 
 export default function Form() {
-  const { card } = useContext(Context);
+  const { hasTrunfo, disableSaveBtn, saveCard } = useContext(Context);
   const rarityOptions = ['Normal', 'Raro', 'Muito Raro'];
 
-  const renderTrunfoCheck = () => ((!card.trunfo) ? (
+  const renderTrunfoCheck = () => ((!hasTrunfo) ? (
     <CardInput
       name="trunfo"
       testid="trunfo-input"
@@ -43,8 +44,8 @@ export default function Form() {
         data-testid="save-button"
         className="button blue-button"
         type="button"
-        disabled={ false }
-        onClick={ () => {} }
+        disabled={ disableSaveBtn }
+        onClick={ saveCard }
       >
         Salvar
       </button>
