@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../Provider';
 
-export default function Card({ formCard }) {
-  const { card } = useContext(Context);
+export default function Card({ formCard, card }) {
+  const { card: contextCard, removeCard } = useContext(Context);
+  if (formCard) card = contextCard;
 
   return (
     <div className="card-container">
@@ -49,7 +50,7 @@ export default function Card({ formCard }) {
               data-testid="delete-button"
               type="button"
               className="button blue-hover-button remove-button"
-              onClick={ () => {} }
+              onClick={ () => removeCard(card) }
             >
               Excluir
             </button>
@@ -61,9 +62,11 @@ export default function Card({ formCard }) {
 }
 
 Card.propTypes = {
+  card: PropTypes.objectOf(PropTypes.any),
   formCard: PropTypes.bool,
 };
 
 Card.defaultProps = {
+  card: {},
   formCard: false,
 };

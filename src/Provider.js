@@ -21,10 +21,10 @@ export default function Provider({ children }) {
   const [card, setCard] = useState(cardInitialState);
   const [hasTrunfo, setHasTrunfo] = useState(false);
   const [savedCards, setSavedCards] = useState([]);
-  const [filter, setFilter] = useState({
+  const [filters, setFilters] = useState({
     name: '',
-    rarity: '',
-    trunfo: '',
+    rarity: 'raridade',
+    trunfo: false,
   });
   const [disableSaveBtn, setDisableSaveBtn] = useState(true);
 
@@ -32,7 +32,15 @@ export default function Provider({ children }) {
     setSavedCards([...savedCards, card]);
     if (card.trunfo) setHasTrunfo(true);
     setCard(cardInitialState);
+
+    // localStorage.setItem(JSON.stringify([...savedCards, card]), 'trunfoCards');
   };
+
+  const removeCard = (cardToRemove) => setSavedCards(
+    savedCards.filter((c) => JSON.stringify(c) !== JSON.stringify(cardToRemove)),
+  );
+
+  // useEffect(() => {}, []);
 
   useEffect(() => {
     const summedAttributes = Number(card.attr1) + Number(card.attr2) + Number(card.attr3);
@@ -48,9 +56,9 @@ export default function Provider({ children }) {
   }, [card]);
 
   const value = {
-    card, hasTrunfo, savedCards, filter, disableSaveBtn,
-    setCard, setHasTrunfo, setSavedCards, setFilter,
-    saveCard,
+    card, hasTrunfo, savedCards, filters, disableSaveBtn,
+    setCard, setHasTrunfo, setSavedCards, setFilters,
+    saveCard, removeCard,
   };
 
   return (

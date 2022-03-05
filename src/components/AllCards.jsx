@@ -1,118 +1,37 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Card from './Card';
+/* eslint-disable import/no-cycle */
+import React, { useContext } from 'react';
+import { CardsFilter, Card } from '.';
+import { Context } from '../Provider';
 
-class AllCards extends React.Component {
-  render() {
-    const {
-      filteredCards,
-      onRemoveButtonClick,
-      nameFilter,
-      rareFilter,
-      trunfoFilter,
-      filterInput,
-      otherFiltersDisabled,
-    } = this.props;
-    const removeButton = true;
+export default function AllCards() {
+  const { savedCards, filters } = useContext(Context);
+  const filteredCards = filters.trunfo ? (
+    savedCards.filter((c) => c.trunfo)
+  ) : (
+    savedCards
+      .filter((c) => c.name.toLowerCase().includes(filters.name.toLowerCase()))
+      .filter((c) => {
+        const rarity = filters.rarity === 'raridade' ? '' : filters.rarity;
+        return rarity === '' ? true : c.rarity === rarity;
+      })
+  );
 
-    return (
-      <>
-        <p className="p-title" id="all-cards-title">Todas as cartas</p>
-        <section className="all-cards-container">
-          <div className="filter-cards">
-            <p>Filtro de busca</p>
-            <input
-              data-testid="name-filter"
-              className="filter-input"
-              placeholder="Nome da Carta"
-              type="text"
-              name="nameFilter"
-              value={ nameFilter }
-              onChange={ filterInput }
-              disabled={ otherFiltersDisabled }
-            />
-            <select
-              data-testid="rare-filter"
-              name="rareFilter"
-              id="rareFilter"
-              className="filter-input filter-select"
-              value={ rareFilter }
-              onChange={ filterInput }
-              disabled={ otherFiltersDisabled }
-            >
-              Raridade
-              <option value="todas">Todas</option>
-              <option value="normal">Normal</option>
-              <option value="raro">Raro</option>
-              <option value="muito raro">Muito Raro</option>
-            </select>
-            <label className="filter-label" htmlFor="trunfoFilter">
-              <input
-                data-testid="trunfo-filter"
-                name="trunfoFilter"
-                id="trunfoFilter"
-                className="filter-checkbox"
-                type="checkbox"
-                value={ trunfoFilter }
-                onChange={ filterInput }
-              />
-              Super Trybe Trunfo?
-            </label>
-            <button
-              className="button blue-button"
-              type="button"
-            >
-              Buscar
-            </button>
-          </div>
-          <div className="saved-cards">
-            {filteredCards.map((card) => {
-              const {
-                cardName,
-                cardDescription,
-                cardAttr1,
-                cardAttr2,
-                cardAttr3,
-                cardImage,
-                cardRare,
-                cardTrunfo,
-              } = card;
-
-              const cardStates = {
-                cardName,
-                cardDescription,
-                cardAttr1,
-                cardAttr2,
-                cardAttr3,
-                cardImage,
-                cardRare,
-                cardTrunfo,
-              };
-
-              return (
-                <Card
-                  key={ cardName }
-                  { ...cardStates }
-                  onRemoveButtonClick={ onRemoveButtonClick }
-                  removeButton={ removeButton }
-                />
-              );
-            })}
-          </div>
-        </section>
-      </>
-    );
-  }
+  return (
+    <>
+      <p className="p-title" id="all-cards-title">Todas as cartas</p>
+      <section className="all-cards-container">
+        <div className="filter-cards">
+          <p>Filtro de busca</p>
+          <CardsFilter />
+        </div>
+        <div className="saved-cards">
+          {
+            filteredCards.map((card, i) => (
+              <Card key={ `card-${i}` } card={ card } />
+            ))
+          }
+        </div>
+      </section>
+    </>
+  );
 }
-
-AllCards.propTypes = {
-  filteredCards: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onRemoveButtonClick: PropTypes.func.isRequired,
-  filterInput: PropTypes.func.isRequired,
-  nameFilter: PropTypes.string.isRequired,
-  rareFilter: PropTypes.string.isRequired,
-  trunfoFilter: PropTypes.bool.isRequired,
-  otherFiltersDisabled: PropTypes.bool.isRequired,
-};
-
-export default AllCards;
